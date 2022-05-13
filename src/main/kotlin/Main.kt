@@ -1,96 +1,59 @@
+import java.io.File
+import java.io.InputStream
+import java.nio.file.Files.write
+import java.nio.file.StandardOpenOption
+
 fun main(args: Array<String>) {
+
     /*
-    Para hacer los cuadrados hay que saber su numero total, en el caso de tener un cuadrado de 4x4
-    hacemos las combinaciones de [0,0|0,1|0,2|0,3|0,4] este siendo su lado "norte" haciendo el contrario
-    obtenemos el "sur" [4,0|4,1|4,2|4,3|4,4], para el "oeste" tenemos el [0,0|1,0|2,0|3,0|4,0]
-    y haciendolo al reves tenemos el "este" [0,4|1,4|2,4|3,4|4,4]
-    Resumiendo sabiendo el tamaño del cuadrado podemos obtener los lados de manera muy facil siguiendo los patrones.
-    */
-    /*
-    Como se repiten algunas coordenadas ya que son los vertices de los lados se pueden poner en una lista para que no se repita.
-    *
-    var a = 4
-    println(a)
-    for (i in 0..a) {
-        print("0,$i ")
-    }
-    println()
-    for (i in 0..a) {
-        print("$i,0 ")
-    }
-    println()
+    val inputStream: InputStream = File("C:\\Users\\ercas\\Downloads\\DAM2_7-5-JACP\\src\\main\\resources\\prueba.txt").inputStream()
+    val inputString = inputStream.bufferedReader().use { it.readText() }
+    println(inputString) // muestra en consola todo el archivo
+     */
 
-    for (i in 0..a) {
-        print("$a,$i ")
-    }
 
-    println()
-    for (i in 0..a) {
-        print("$i,$a ")
-    }
-    a--
-    println()
-    println(a)
-    for (i in 0..a) {
-        print("0,$i ")
-    }
-    println()
-    for (i in 0..a) {
-        print("$i,0 ")
-    }
-    println()
+    val inputStream2: InputStream = File("C:\\Users\\ercas\\Downloads\\DAM2_7-5-JACP\\src\\main\\resources\\test-1.in").inputStream()
+    val lineas = mutableListOf<String>()
+    inputStream2.bufferedReader().useLines { lines -> lines.forEach { lineas.add(it) } }
+    var n = 1
+    //lineas.forEach { println("${n++} " + it) } imprime todo el archivo numerando cada línea
 
-    for (i in 0..a) {
-        print("$a,$i ")
-    }
+    var w = 0
+    var z = 2
+    var boolean :Boolean = false
+    lineas.forEach {
 
-    println()
-    for (i in 0..a) {
-        print("$i,$a ")
+        if (lineas[w].contains("#")){
+            println("Paramos")
+        }else {
+            println(it)
+            w++
+        }
     }
+    //println(lineas[0])
+    var area = lineas[0].toInt()
+    var tiempo = lineas[1].toInt()
+    var prueba = (lineas[3].removeRange(1..1).toFloat()/10).toString()
+    println(prueba)
 
-    a--
-    println()
-    println(a)
-    for (i in 0..a) {
-        print("0,$i ")
-    }
-    println()
-    for (i in 0..a) {
-        print("$i,0 ")
-    }
-    println()
 
-    for (i in 0..a) {
-        print("$a,$i ")
-    }
 
-    println()
-    for (i in 0..a) {
-        print("$i,$a ")
-    }
+    var jugadores: MutableList<String> = mutableListOf()
+    for (x in 2 until w){
+        jugadores.add((lineas[x].removeRange(1..1).toFloat()/10).toString())
 
-    a--
-    println()
-    println(a)
-    for (i in 0..a) {
-        print("0,$i ")
     }
-    println()
-    for (i in 0..a) {
-        print("$i,0 ")
-    }
-    println()
+    println(jugadores.toString())
 
-    for (i in 0..a) {
-        print("$a,$i ")
-    }
-
-    println()
-    for (i in 0..a) {
-        print("$i,$a ")
-    }
-*/
-    var a = GestinadorDeTablero(125, 10)
+    var a = GestinadorDeTablero(tiempo, area, jugadores)
     a.makeArea()
+    println("Consolita "+a.makeArea())
+
+    //  ESCRIBIR ARCHIVOS
+
+    val outString = a.makeArea().toString()
+    val archivo = File("C:\\Users\\ercas\\Downloads\\DAM2_7-5-JACP\\src\\main\\resources\\test-1.ans")
+    write(archivo.toPath(), outString.toByteArray(), StandardOpenOption.CREATE)
+
+
 }
